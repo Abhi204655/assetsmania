@@ -5,8 +5,16 @@ const { getAllImageLinks } = require("./controller");
 
 const app = express();
 
+let whiteList = ["http://localhost:3000", "https://assetsmania.netlify.app"];
+
 var corsOptions = {
-  origin: "http://localhost:3000",
+  origin: (origin, callback) => {
+    if (whitelist.indexOf(origin) !== -1) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  },
   optionsSuccessStatus: 200, // For legacy browser support
 };
 
